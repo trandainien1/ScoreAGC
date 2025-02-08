@@ -29,7 +29,7 @@ To run Kaggle, you have to do the following steps:
 
 📌 You can store saliency maps/heatmaps of XAI methods for later use by store them on Google Drive and use the id of them in our Kaggle.
 
-# Github references
+## Github references
 
 - Special thanks to the following githubs to support our evaluations and references. 
 
