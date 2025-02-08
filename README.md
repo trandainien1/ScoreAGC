@@ -45,8 +45,8 @@ We clone these githubs and implement our methods inside them. Besides, we also u
 
 - Refer to these github for ScoreAGC implementation (refer README for detail instruction):
 
-    Localization Evaluation: [link](https://github.com/trandainien1/better_agc_ubuntu)
+Localization Evaluation: [link](https://github.com/trandainien1/better_agc_ubuntu)
 
-    Insertion/Deletion Evaluation: [link](https://github.com/trandainien1/tam)
+Insertion/Deletion Evaluation: [link](https://github.com/trandainien1/tam)
 
-    Faithfulness Evaluation: [link](https://github.com/trandainien1/quantus)
+Faithfulness Evaluation: [link](https://github.com/trandainien1/quantus)
