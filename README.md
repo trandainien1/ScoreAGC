@@ -42,3 +42,11 @@ To run Kaggle, you have to do the following steps:
 - Detail our usage in these githubs:
 
 We clone these githubs and implement our methods inside them. Besides, we also use their implementation of evaluation to help us in conducting evaluation metrics.
+
+- Refer to these github for ScoreAGC implementation (refer README for detail instruction):
+
+    Localization Evaluation: [link](https://github.com/trandainien1/better_agc_ubuntu)
+
+    Insertion/Deletion Evaluation: [link](https://github.com/trandainien1/tam)
+
+    Faithfulness Evaluation: [link](https://github.com/trandainien1/quantus)
