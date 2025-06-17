@@ -1,52 +1,53 @@
+# Diễn giải Vision Transformer: Cải thiện biểu đồ kích hoạt lớp ở mỗi Head bằng điểm tin cậy dựa vào phương pháp biến đổi hình ảnh đầu vào
 
-# ScoreAGC - Evaluate the importance of CAM for every heads 
+Đây là phần triển khai GitHub của phương pháp ScoreAGC.
 
-This is github implementation of ScoreAGC
+## Mô tả
 
-## Description
-
-Vision Transformer (ViT) is a widely used model in computer vision due to its unique architecture, which uses self-attention mechanisms to effectively extract features for accurate predictions. Given its high performance, it is crucial to understand the features the model relies on for decision-making. This study proposes a method for visualizing the features extracted by ViT by identifying Class Activation Maps (CAMs) at each head within the self-attention module. We then evaluate the importance of each CAM and aggregate them to derive the final CAM representation. Furthermore, we used evaluation metrics such as Localization metrics and Faithfulness metrics to assess whether our explanation method provides meaningful insights into the model’s decision-making process.
+Vision Transformer (ViT) là một mô hình phổ biến trong thị giác máy tính nhờ vào kiến trúc đặc biệt, sử dụng cơ chế tự chú ý (self-attention) để trích xuất đặc trưng hiệu quả nhằm đưa ra dự đoán chính xác. Với hiệu năng cao như vậy, việc hiểu rõ các đặc trưng mà mô hình dựa vào để đưa ra quyết định là vô cùng quan trọng. Nghiên cứu này đề xuất một phương pháp trực quan hóa các đặc trưng được trích xuất bởi ViT bằng cách xác định các Bản đồ Kích hoạt theo Lớp (CAMs) tại từng head trong module self-attention. Chúng tôi đánh giá mức độ quan trọng của từng CAM và tổng hợp chúng lại để tạo ra biểu diễn CAM cuối cùng. Ngoài ra, chúng tôi sử dụng các chỉ số đánh giá như *Localization metrics* và *Faithfulness metrics* để kiểm tra xem phương pháp giải thích của chúng tôi có thực sự cung cấp những hiểu biết ý nghĩa về quá trình ra quyết định của mô hình hay không.
 
 ## Kaggle
 
-All the experiments are conducted in Kaggle. 
+Tất cả các thí nghiệm được thực hiện trên nền tảng Kaggle.
 
-To run Kaggle, you have to do the following steps:
-1. Download "ILSVRC2012_img_val.tar" and "ILSVRC2012_devkit_t12.tar.gz" from [Imagenet](https://www.image-net.org).
-2. Upload "ILSVRC2012_img_val.tar" and "ILSVRC2012_devkit_t12.tar.gz" to your personal Google Drive.
+Để chạy trên Kaggle, bạn cần thực hiện các bước sau:
 
-3. Enable sharing option and copy the id of two of them.
+1. Tải về hai tập tin "ILSVRC2012\_img\_val.tar" và "ILSVRC2012\_devkit\_t12.tar.gz" từ trang [Imagenet](https://www.image-net.org).
 
-4. Paste id to our Kaggle and then you are good to go. 
+2. Tải hai tập tin này lên Google Drive cá nhân của bạn.
 
-**Localization evaluation**: [link](https://www.kaggle.com/code/nientrandai/localization-evaluation)
+3. Bật chế độ chia sẻ và sao chép ID của hai tập tin này.
 
-**Insertion Deletion evaluation**: [link](https://www.kaggle.com/code/nientrandai/insertion-deletion-evaluation)
+4. Dán ID vào notebook của chúng tôi trên Kaggle là bạn có thể bắt đầu.
 
-**Falthfulness Evaluation**: [link](https://www.kaggle.com/code/nientrandai/faithfulness-evaluation)
+**Đánh giá khả năng định vị (Localization)**: [liên kết](https://www.kaggle.com/code/nientrandai/localization-evaluation)
 
-**Display Saliency maps**: [link](https://www.kaggle.com/code/nientrandai/display-saliency-map)
+**Đánh giá chèn/xóa (Insertion Deletion)**: [liên kết](https://www.kaggle.com/code/nientrandai/insertion-deletion-evaluation)
 
-📌 You can store saliency maps/heatmaps of XAI methods for later use by store them on Google Drive and use the id of them in our Kaggle.
+**Đánh giá độ tin cậy (Faithfulness)**: [liên kết](https://www.kaggle.com/code/nientrandai/faithfulness-evaluation)
 
-## Github references
+**Hiển thị bản đồ chú ý (Saliency maps)**: [liên kết](https://www.kaggle.com/code/nientrandai/display-saliency-map)
 
-- Special thanks to the following githubs to support our evaluations and references. 
+📌 Bạn có thể lưu trữ các bản đồ saliency/heatmaps của các phương pháp XAI để sử dụng sau bằng cách lưu chúng lên Google Drive và sử dụng ID của chúng trong notebook Kaggle của chúng tôi.
 
-[Attention Guided CAM: Visual Explanations of Vision Transformer Guided by Self-Attention](https://github.com/LeemSaebom/Attention-Guided-CAM-Visual-Explanations-of-Vision-Transformer-Guided-by-Self-Attention)
+## Tham khảo GitHub
 
-[Explainability and Evaluation of Vision Transformers: An In-Depth Experimental Study](https://github.com/ValentinCord/TFE_XAI_ViT/tree/main)
+* Xin gửi lời cảm ơn đặc biệt đến các kho GitHub sau đã hỗ trợ cho quá trình đánh giá và tham khảo của chúng tôi:
 
-[Explaining Information Flow Inside Vision Transformers Using Markov Chain](https://github.com/XianrenYty/Transition_Attention_Maps)
+[Attention Guided CAM: Giải thích trực quan Vision Transformer được dẫn dắt bởi Self-Attention](https://github.com/LeemSaebom/Attention-Guided-CAM-Visual-Explanations-of-Vision-Transformer-Guided-by-Self-Attention)
 
-- Detail our usage in these githubs:
+[Giải thích và đánh giá Vision Transformer: Nghiên cứu thực nghiệm chuyên sâu](https://github.com/ValentinCord/TFE_XAI_ViT/tree/main)
 
-We clone these githubs and implement our methods inside them. Besides, we also use their implementation of evaluation to help us in conducting evaluation metrics.
+[Giải thích luồng thông tin bên trong Vision Transformer bằng cách sử dụng chuỗi Markov](https://github.com/XianrenYty/Transition_Attention_Maps)
 
-- Refer to these github for ScoreAGC implementation (refer README for detail instruction):
+* Chi tiết cách sử dụng:
 
-Localization Evaluation: [link](https://github.com/trandainien1/better_agc_ubuntu)
+Chúng tôi đã clone các kho GitHub này và triển khai phương pháp của mình bên trong chúng. Ngoài ra, chúng tôi cũng sử dụng các đoạn mã có sẵn trong đó để hỗ trợ đánh giá các chỉ số.
 
-Insertion/Deletion Evaluation: [link](https://github.com/trandainien1/tam)
+* Tham khảo các GitHub sau để xem chi tiết phần triển khai của ScoreAGC (tham khảo phần README để biết hướng dẫn chi tiết):
 
-Faithfulness Evaluation: [link](https://github.com/trandainien1/quantus)
+Đánh giá Localization: [liên kết](https://github.com/trandainien1/better_agc_ubuntu)
+
+Đánh giá Insertion/Deletion: [liên kết](https://github.com/trandainien1/tam)
+
+Đánh giá Faithfulness: [liên kết](https://github.com/trandainien1/quantus)
