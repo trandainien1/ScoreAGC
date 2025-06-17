@@ -26,7 +26,7 @@ Tất cả các thí nghiệm được thực hiện trên nền tảng Kaggle.
 
 **Đánh giá độ tin cậy (Faithfulness)**: [liên kết](https://www.kaggle.com/code/nientrandai/faithfulness-evaluation)
 
-**Hiển thị bản đồ chú ý (Saliency maps)**: [liên kết](https://www.kaggle.com/code/nientrandai/display-saliency-map)
+**Hiển thị bản đồ chú ý (Saliency maps)**: [liên kết](https://www.kaggle.com/code/nientrandai/tr-c-quan-b-n-nhi-t)
 
 📌 Bạn có thể lưu trữ các bản đồ saliency/heatmaps của các phương pháp XAI để sử dụng sau bằng cách lưu chúng lên Google Drive và sử dụng ID của chúng trong notebook Kaggle của chúng tôi.
 
