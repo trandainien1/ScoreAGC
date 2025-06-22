@@ -6,6 +6,8 @@
 
 Vision Transformer (ViT) là một mô hình phổ biến trong thị giác máy tính nhờ vào kiến trúc đặc biệt, sử dụng cơ chế tự chú ý (self-attention) để trích xuất đặc trưng hiệu quả nhằm đưa ra dự đoán chính xác. Với hiệu năng cao như vậy, việc hiểu rõ các đặc trưng mà mô hình dựa vào để đưa ra quyết định là vô cùng quan trọng. Nghiên cứu này đề xuất một phương pháp trực quan hóa các đặc trưng được trích xuất bởi ViT bằng cách xác định các Bản đồ Kích hoạt theo Lớp (CAMs) tại từng head trong module self-attention. Chúng tôi đánh giá mức độ quan trọng của từng CAM và tổng hợp chúng lại để tạo ra biểu diễn CAM cuối cùng. Ngoài ra, chúng tôi sử dụng các chỉ số đánh giá như *Localization metrics* và *Faithfulness metrics* để kiểm tra xem phương pháp giải thích của chúng tôi có thực sự cung cấp những hiểu biết ý nghĩa về quá trình ra quyết định của mô hình hay không.
 
+Trong github này sẽ chứa đoạn code cho phương pháp ScoreAGC nằm trong file `score_agc.py`. Để chạy được các kết quả thực nghiệm hoặc trực quan hình ảnh giải thích bằng phương pháp của chúng tôi hoặc các phương pháp khác hãy sử dụng các đường dẫn trong mục Kaggle bên dưới.
+
 ## Kaggle
 
 Tất cả các thí nghiệm được thực hiện trên nền tảng Kaggle.
