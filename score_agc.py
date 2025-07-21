@@ -1,3 +1,10 @@
+import torch
+from einops.layers.torch import Reduce, Rearrange
+import torchvision.transforms as transforms
+import numpy as np
+import timm 
+import torch.nn.functional as F
+
 class ScoreAGC:
     def __init__(self, model, attention_matrix_layer = 'before_softmax', attention_grad_layer = 'after_softmax', head_fusion='sum', layer_fusion='sum', 
                  normalize_cam_heads=True, 
@@ -74,12 +81,8 @@ class ScoreAGC:
         # put all matrices from each layer into one tensor
         self.attn_matrix.reverse()
         attn = self.attn_matrix[0]
-        # attn = self.attn_matrix
         gradient = self.grad_attn[0]
-        # gradient = self.grad_attn
-        # layer_index = 2
         for i in range(1, len(self.attn_matrix)):
-        # for i in range(layer_index, layer_index+1): 
             attn = torch.concat((attn, self.attn_matrix[i]), dim=0)
             gradient = torch.concat((gradient, self.grad_attn[i]), dim=0)
 
@@ -90,15 +93,13 @@ class ScoreAGC:
         mask = gradient * attn
 
         # aggregation of CAM of all heads and all layers and reshape the final CAM.
-        mask = mask[:, :, :, 1:].unsqueeze(0) # * niên: chỗ này thêm 1 ở đầu (ví dụ: (2) -> (1, 2)) và 1: là bỏ token class
+        mask = mask[:, :, :, 1:].unsqueeze(0)
         
-
-        # *Niên:Thay vì tính tổng theo blocks và theo head như công thức để ra 1 mask cuối cùng là CAM thì niên sẽ giữ lại tất cả các mask của các head ở mỗi block
         if self.is_head_fuse:
             mask = Reduce('b l h z p -> b l z p', reduction=self.head_fusion)(mask)
             mask = Rearrange('b l z (h w)  -> b l z h w', h=self.width, w=self.width)(mask)
         else:
-            mask = Rearrange('b l hd z (h w)  -> b l hd z h w', h=self.width, w=self.width)(mask) # *Niên: chỗ này tách từng token (1, 196) thành từng patch (1, 14, 14)
+            mask = Rearrange('b l hd z (h w)  -> b l hd z h w', h=self.width, w=self.width)(mask) 
 
         return prediction, mask, output
 
@@ -128,7 +129,6 @@ class ScoreAGC:
     def generate_scores(self, head_cams, prediction, output_truth, image):
         with torch.no_grad():
             tensor_heatmaps = head_cams[0]
-            
 
             if self.is_head_fuse:
                 tensor_heatmaps = tensor_heatmaps.reshape(12, 1, 14, 14)
@@ -141,7 +141,6 @@ class ScoreAGC:
                 tensor_heatmaps = torch.stack(heatmaps_list).unsqueeze(1)
                 
                 tensor_heatmaps = transforms.Resize((224, 224))(tensor_heatmaps)   
-                # tensor_heatmaps = F.interpolate(tensor_heatmaps, size=(image.shape[2], image.shape[3]), mode='nearest')
 
                       
             elif self.normalize_cam_heads:
@@ -185,7 +184,6 @@ class ScoreAGC:
                     # increase in confidence
                     agc_scores = output_mask[:, prediction.item()] - output_truth[0, prediction.item()]
             
-            # if self.score_formula == 'increase_in_confidence':
             if self.score_minmax_norm:   
                 agc_scores = (agc_scores - agc_scores.min() ) / (agc_scores.max() - agc_scores.min())
             else:
@@ -226,7 +224,6 @@ class ScoreAGC:
             x = x.unsqueeze(dim=0)
 
         with torch.enable_grad():
-            # * Head cam shape: (1, 12, 12, 1, 14, 14) - 12 layers - 12 heads - 1 saliency of shape 14x14 = 196 tokens
             predicted_class, head_cams, output_truth = self.generate_cams_of_heads(x)
         
         # Define the class to explain. If not explicit, use the class predicted by the model
@@ -244,4 +241,3 @@ class ScoreAGC:
         saliency_map = self.generate_saliency(head_cams=head_cams, agc_scores=scores)
 
         return predicted_class, saliency_map
-
