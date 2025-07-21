@@ -190,7 +190,6 @@ class ScoreAGC:
                 agc_scores = torch.sigmoid(agc_scores)
             
             agc_scores += self.plus
-
             agc_scores = agc_scores.reshape(head_cams[0].shape[0], head_cams[0].shape[1])
 
             del output_mask  # Delete unnecessary variables that are no longer needed
@@ -232,7 +231,7 @@ class ScoreAGC:
             class_idx = predicted_class
 
         # Generate the saliency map for image x and class_idx
-        scores = self.generate_scores(
+        scores,_ = self.generate_scores(
             image=x,
             head_cams=head_cams,
             prediction=predicted_class, output_truth=output_truth
